@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QBR Dashboard</title>
+  <meta name="description" content="Interactive Quarterly Business Review dashboard. 100% client-side CSV processing." />
+
+  <!-- Third-party libraries (bundled locally in /vendor for offline use). All processing is client-side. -->
+  <link rel="stylesheet" href="vendor/jquery.dataTables.min.css" />
+
+  <!-- App styles -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- App shell -->
+  <div class="app" id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+      <div class="sidebar__brand">
+        <div class="brand__mark" aria-hidden="true">QBR</div>
+        <div class="brand__text">
+          <span class="brand__title">QBR Dashboard</span>
+          <span class="brand__subtitle">Quarterly Business Review</span>
+        </div>
+      </div>
+
+      <nav class="nav" id="nav" aria-label="Sections">
+        <button class="nav__item is-active" data-view="overview">
+          <span>Overview</span>
+        </button>
+
+        <div class="nav__group-label">Categories</div>
+        <div id="navCategories"><!-- category nav injected by app.js --></div>
+
+        <div class="nav__group-label">Workspace</div>
+        <button class="nav__item" data-view="upload">
+          <span>Upload Data</span>
+        </button>
+        <button class="nav__item" data-view="settings">
+          <span>Settings</span>
+        </button>
+      </nav>
+
+      <div class="sidebar__footer">
+        <div class="privacy-badge" title="All CSV parsing happens in your browser. No data is uploaded to any server.">
+          <span class="privacy-badge__dot"></span>
+          <span>Client-side only · data stays local</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <!-- Top bar -->
+      <header class="topbar">
+        <button class="icon-btn" id="menuToggle" aria-label="Toggle navigation">=</button>
+        <div class="topbar__title">
+          <h1 id="viewTitle">Overview</h1>
+          <p id="viewSubtitle">Consolidated performance across all categories</p>
+        </div>
+
+        <div class="topbar__actions">
+          <button class="btn btn--ghost" id="downloadCsvBtn" title="Export all data as a single consolidated CSV">CSV</button>
+          <button class="btn btn--primary" id="downloadPdfBtn" title="Export the current view as a PDF report">Report (PDF)</button>
+        </div>
+      </header>
+
+      <!-- Global filters -->
+      <section class="filters" id="filters" aria-label="Filters">
+        <div class="filters__group">
+          <label for="filterDateFrom">Date from</label>
+          <input type="date" id="filterDateFrom" />
+        </div>
+        <div class="filters__group">
+          <label for="filterDateTo">Date to</label>
+          <input type="date" id="filterDateTo" />
+        </div>
+        <div class="filters__group">
+          <label for="filterCategory">Category</label>
+          <select id="filterCategory"><option value="">All categories</option></select>
+        </div>
+        <div class="filters__group">
+          <label for="filterStatus">Status</label>
+          <select id="filterStatus">
+            <option value="">All statuses</option>
+            <option value="red">Red</option>
+            <option value="amber">Amber</option>
+            <option value="green">Green</option>
+          </select>
+        </div>
+        <div class="filters__spacer"></div>
+        <button class="btn btn--ghost" id="resetFiltersBtn">Reset filters</button>
+      </section>
+
+      <!-- Dynamic view content -->
+      <main class="content" id="content" tabindex="-1"><!-- rendered by app.js --></main>
+
+      <footer class="appfoot">
+        <span id="storageInfo">—</span>
+        <span>QBR Dashboard</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Toast notifications -->
+  <div class="toast-host" id="toastHost" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ===== Third-party libraries (bundled locally in /vendor) ===== -->
+  <script src="vendor/jquery.min.js"></script>
+  <script src="vendor/jquery.dataTables.min.js"></script>
+  <script src="vendor/chart.umd.min.js"></script>
+  <script src="vendor/papaparse.min.js"></script>
+  <script src="vendor/jspdf.umd.min.js"></script>
+  <script src="vendor/jspdf.plugin.autotable.min.js"></script>
+
+  <!-- ===== App modules (load order matters) ===== -->
+  <script src="js/store.js?v=7"></script>
+  <script src="js/parser.js?v=7"></script>
+  <script src="js/charts.js?v=7"></script>
+  <script src="js/tables.js?v=7"></script>
+  <script src="js/filters.js?v=7"></script>
+  <script src="js/upload.js?v=7"></script>
+  <script src="js/export.js?v=7"></script>
+  <script src="js/app.js?v=7"></script>
+</body>
+</html>
