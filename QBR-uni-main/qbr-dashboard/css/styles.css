@@ -1,5 +1,5 @@
 /* =============================================================
-   QBR Dashboard — styles.css
+  QBR Dashboard - styles.css
    Clean, professional theme (Cisco-inspired) with responsive
    sidebar layout, traffic-light status tokens, and KPI tiles.
    ============================================================= */
@@ -14,7 +14,7 @@
 
   --c-text:         #0f1b2d;
   --c-text-muted:   #5a6b80;
-  --c-text-faint:   #8595a8;
+  --c-text-faint:   #64748b;
 
   --c-primary:      #0d6efd; /* action blue */
   --c-primary-700:  #0a58ca;
@@ -60,12 +60,38 @@ h1, h2, h3, h4 { margin: 0; font-weight: 700; letter-spacing: -0.01em; }
 button { font-family: inherit; }
 a { color: var(--c-primary); }
 
+.skip-link {
+  position: fixed;
+  left: 12px;
+  top: 10px;
+  z-index: 2000;
+  padding: 9px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--c-primary);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform .15s ease;
+}
+.skip-link:focus { transform: translateY(0); }
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible {
+  outline: 3px solid var(--c-accent);
+  outline-offset: 3px;
+}
+
 /* ------------------------------------------------------------- App shell */
 .app {
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
   min-height: 100vh;
 }
+.nav-backdrop { display: none; }
 
 /* ------------------------------------------------------------- Sidebar */
 .sidebar {
@@ -134,19 +160,6 @@ a { color: var(--c-primary); }
   padding: 2px 7px; border-radius: 999px;
 }
 .nav__badge.is-empty { background: rgba(255,255,255,.06); color: rgba(255,255,255,.5); }
-
-.sidebar__footer { padding: 14px; border-top: 1px solid rgba(255,255,255,.08); }
-.privacy-badge {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 11px; color: var(--c-sidebar-text);
-  background: rgba(26,162,96,.12);
-  border: 1px solid rgba(26,162,96,.25);
-  padding: 8px 10px; border-radius: var(--radius-sm);
-}
-.privacy-badge__dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--c-green); box-shadow: 0 0 0 3px rgba(26,162,96,.25);
-}
 
 /* ------------------------------------------------------------- Main column */
 .main { display: flex; flex-direction: column; min-width: 0; }
@@ -286,6 +299,21 @@ a { color: var(--c-primary); }
 .card__head-actions { margin-left: auto; display: flex; gap: 8px; align-items: center; }
 .card__body { padding: 16px; flex: 1; min-width: 0; }
 .card__body--chart { height: 300px; position: relative; }
+.chart-data { border-top: 1px solid var(--c-border); }
+.chart-data summary {
+  padding: 10px 16px;
+  color: var(--c-primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.chart-data summary:hover { background: var(--c-surface-2); }
+.chart-data__scroll { overflow: auto; max-height: 320px; padding: 0 16px 16px; }
+.chart-data__table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.chart-data__table caption { text-align: left; color: var(--c-text-muted); padding: 2px 0 8px; }
+.chart-data__table th,
+.chart-data__table td { padding: 7px 8px; border: 1px solid var(--c-border); text-align: left; white-space: nowrap; }
+.chart-data__table thead th { background: var(--c-surface-2); }
 
 /* Category card (overview) */
 .cat-card { cursor: pointer; transition: transform .12s ease, box-shadow .12s ease; }
@@ -303,7 +331,7 @@ a { color: var(--c-primary); }
 .cat-card__stat { font-size: 26px; font-weight: 800; margin-top: 12px; }
 .cat-card__foot { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 12px; color: var(--c-text-muted); }
 
-/* Overview panels — each category gets its own independent section */
+/* Overview panels: each category gets its own independent section */
 .overview-panel {
   background: var(--c-surface);
   border: 1px solid var(--c-border);
@@ -341,10 +369,12 @@ a { color: var(--c-primary); }
 .status--amber { background: var(--c-amber-bg); color: #8a5b00; }
 .status--green { background: var(--c-green-bg); color: #0f6b40; }
 .status--none  { background: var(--c-surface-2); color: var(--c-text-faint); }
+.status--demo  { background: #e8e5ff; color: #4c3ca7; margin-left: 8px; }
 .status--red .status-dot   { background: var(--c-red); }
 .status--amber .status-dot { background: var(--c-amber); }
 .status--green .status-dot { background: var(--c-green); }
 .status--none .status-dot  { background: var(--c-text-faint); }
+.status--demo .status-dot  { background: #6f42c1; }
 
 /* Tables */
 .table-wrap { width: 100%; overflow-x: auto; }
@@ -456,7 +486,7 @@ table.dataTable tbody tr.row--green td { background: var(--c-green-bg); }
 .toast--error { background: #a3140d; }
 .toast--warn { background: #8a5b00; }
 .toast__close { margin-left: auto; cursor: pointer; opacity: .8; background: none; border: none; color: inherit; font-size: 15px; }
-@keyframes toast-in { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes toast-in { from { transform: translateY(8px); } to { transform: translateY(0); } }
 
 /* ------------------------------------------------------------- Utilities */
 .muted { color: var(--c-text-muted); }
@@ -481,8 +511,17 @@ table.dataTable tbody tr.row--green td { background: var(--c-green-bg); }
   }
   .app.nav-open .sidebar { transform: translateX(0); }
   .icon-btn { display: grid; place-items: center; }
-  .app.nav-open::after {
-    content: ""; position: fixed; inset: 0; background: rgba(8,18,32,.45); z-index: 40;
+  .app.nav-open .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgba(8,18,32,.45);
+    z-index: 40;
+    cursor: pointer;
   }
 }
 @media (max-width: 560px) {
@@ -490,4 +529,13 @@ table.dataTable tbody tr.row--green td { background: var(--c-green-bg); }
   .filters { gap: 10px; }
   .filters input, .filters select { min-width: 120px; }
   .kpi__value { font-size: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

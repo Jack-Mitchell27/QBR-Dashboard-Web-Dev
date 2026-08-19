@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="590" viewBox="0 0 1200 590" role="img" aria-labelledby="title desc">
+  <title id="title">QBR Dashboard module architecture</title>
+  <desc id="desc">A simple architecture diagram using rectangles and direct arrows. The interface connects to the application controller, which coordinates feature modules, parsing, storage and browser local storage.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0 0L8 4L0 8Z" fill="#315d7a"/>
+    </marker>
+    <style>
+      .heading{font:700 28px Arial,sans-serif;fill:#10243a}
+      .label{font:700 17px Arial,sans-serif;fill:#10243a;text-anchor:middle}
+      .note{font:14px Arial,sans-serif;fill:#52657a;text-anchor:middle}
+      .shape{fill:#fff;stroke:#315d7a;stroke-width:2}
+      .controller{fill:#e7f7ef;stroke:#16845b;stroke-width:2}
+      .storage{fill:#fff4e8;stroke:#c86f14;stroke-width:2}
+      .connector{fill:none;stroke:#315d7a;stroke-width:3;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="590" fill="#fff"/>
+  <text x="40" y="42" class="heading">QBR Dashboard: client-side architecture</text>
+
+  <rect x="390" y="75" width="420" height="64" rx="4" class="shape"/>
+  <text x="600" y="102" class="label">User interface</text>
+  <text x="600" y="125" class="note">HTML, CSS, controls and responsive layout</text>
+
+  <path d="M600 139V178" class="connector"/>
+  <rect x="410" y="182" width="380" height="70" rx="4" class="controller"/>
+  <text x="600" y="211" class="label">Application controller</text>
+  <text x="600" y="235" class="note">app.js routing, rendering and events</text>
+
+  <path d="M600 252V286H105" class="connector"/>
+  <path d="M600 286H303" class="connector"/>
+  <path d="M600 286H501" class="connector"/>
+  <path d="M600 286H699" class="connector"/>
+  <path d="M600 286H897" class="connector"/>
+  <path d="M600 286H1095" class="connector"/>
+
+  <rect x="30" y="300" width="150" height="64" rx="4" class="shape"/>
+  <text x="105" y="327" class="label">Upload</text><text x="105" y="349" class="note">File input</text>
+  <rect x="228" y="300" width="150" height="64" rx="4" class="shape"/>
+  <text x="303" y="327" class="label">Filters</text><text x="303" y="349" class="note">Combined rules</text>
+  <rect x="426" y="300" width="150" height="64" rx="4" class="shape"/>
+  <text x="501" y="327" class="label">Charts</text><text x="501" y="349" class="note">Metric series</text>
+  <rect x="624" y="300" width="150" height="64" rx="4" class="shape"/>
+  <text x="699" y="327" class="label">Tables</text><text x="699" y="349" class="note">Record detail</text>
+  <rect x="822" y="300" width="150" height="64" rx="4" class="shape"/>
+  <text x="897" y="327" class="label">Export</text><text x="897" y="349" class="note">CSV and PDF</text>
+  <rect x="1020" y="300" width="150" height="64" rx="4" class="shape"/>
+  <text x="1095" y="327" class="label">Libraries</text><text x="1095" y="349" class="note">Local vendor files</text>
+
+  <path d="M105 364V415H410" class="connector"/>
+  <rect x="410" y="388" width="220" height="70" rx="4" class="shape"/>
+  <text x="520" y="417" class="label">Parser</text>
+  <text x="520" y="441" class="note">Validation and normalisation</text>
+
+  <path d="M630 423H700" class="connector"/>
+  <rect x="700" y="388" width="220" height="70" rx="4" class="shape"/>
+  <text x="810" y="417" class="label">Store</text>
+  <text x="810" y="441" class="note">Transactional state and recovery</text>
+
+  <path d="M810 458V497" class="connector"/>
+  <rect x="640" y="501" width="340" height="55" rx="4" class="storage"/>
+  <text x="810" y="535" class="label">Browser storage: primary and backup</text>
+</svg>

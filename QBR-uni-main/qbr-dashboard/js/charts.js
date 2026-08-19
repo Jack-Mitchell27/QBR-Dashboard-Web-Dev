@@ -1,5 +1,5 @@
 /* =============================================================
-   charts.js — Chart.js renderers + shared aggregation helpers
+  charts.js - Chart.js renderers + shared aggregation helpers
    Exposes a global `Charts` object.
    ============================================================= */
 (function () {
@@ -22,7 +22,7 @@
   function sumBy(rows, field) {
     const map = new Map();
     rows.forEach(r => {
-      const key = r[field] || '—';
+      const key = r[field] || '-';
       const v = typeof r.Value === 'number' ? r.Value : 0;
       map.set(key, (map.get(key) || 0) + v);
     });
@@ -35,6 +35,52 @@
     const arr = Array.from(map.entries());
     arr.sort((a, b) => String(a[0]).localeCompare(String(b[0])));
     return { labels: arr.map(x => x[0]), values: arr.map(x => x[1]) };
+  }
+
+  // Build one line per sub-category/metric so unlike units are never summed.
+  function timeSeriesByMetric(rows, field) {
+    const dateField = field || 'Date';
+    const labels = Array.from(new Set(rows.map(r => r[dateField]).filter(Boolean))).sort();
+    const groups = new Map();
+    rows.forEach((r, index) => {
+      if (!r[dateField] || typeof r.Value !== 'number') return;
+      const baseLabel = [r.Category, r.Metric].filter(Boolean).join(' - ') || 'Metric';
+      const key = baseLabel + '\u0000' + (r.Unit || '');
+      if (!groups.has(key)) groups.set(key, { label: baseLabel, unit: r.Unit || '', points: new Map(), order: index });
+      // If a source contains duplicate dates for the same metric, retain the
+      // final source row rather than inventing a total across duplicate data.
+      groups.get(key).points.set(r[dateField], r.Value);
+    });
+    const datasets = Array.from(groups.values())
+      .sort((a, b) => a.order - b.order)
+      .map(group => ({
+        label: group.label + (group.unit ? ' (' + group.unit + ')' : ''),
+        data: labels.map(label => group.points.has(label) ? group.points.get(label) : null),
+        spanGaps: true
+      }));
+    return { labels, datasets };
+  }
+
+  // Latest recorded value per sub-category/metric (not a sum across periods).
+  function latestByMetric(rows) {
+    const latest = new Map();
+    rows.forEach((r, index) => {
+      if (typeof r.Value !== 'number') return;
+      const label = [r.Category, r.Metric].filter(Boolean).join(' - ') || 'Metric';
+      const current = latest.get(label);
+      if (!current || String(r.Date || '').localeCompare(String(current.date || '')) > 0 ||
+          (r.Date === current.date && index > current.index)) {
+        latest.set(label, {
+          label,
+          value: r.Value,
+          unit: r.Unit || '',
+          status: r.Status || 'none',
+          date: r.Date || '',
+          index
+        });
+      }
+    });
+    return Array.from(latest.values());
   }
 
   // Count rows per status (red/amber/green/none).
@@ -68,7 +114,9 @@
         callbacks: {
           label: (ctx) => {
             const label = ctx.dataset.label ? ctx.dataset.label + ': ' : '';
-            const val = ctx.parsed.y != null ? ctx.parsed.y : ctx.parsed;
+            const val = ctx.parsed && typeof ctx.parsed === 'object'
+              ? (ctx.chart.options.indexAxis === 'y' ? ctx.parsed.x : ctx.parsed.y)
+              : ctx.parsed;
             return label + formatNumber(val);
           }
         }
@@ -81,7 +129,7 @@
   }, extra || {});
 
   function formatNumber(n) {
-    if (n == null || isNaN(n)) return '—';
+    if (n == null || isNaN(n)) return '-';
     if (Math.abs(n) >= 1e6) return (n / 1e6).toFixed(1) + 'M';
     if (Math.abs(n) >= 1e3) return (n / 1e3).toFixed(1) + 'k';
     return (Math.round(n * 100) / 100).toLocaleString();
@@ -180,7 +228,7 @@
 
   window.Charts = {
     PALETTE, STATUS_COLORS,
-    sumBy, timeSeries, statusCounts, worstStatus,
+    sumBy, timeSeries, timeSeriesByMetric, latestByMetric, statusCounts, worstStatus,
     line, bar, doughnut, statusDoughnut,
     formatNumber, destroy, destroyAll
   };

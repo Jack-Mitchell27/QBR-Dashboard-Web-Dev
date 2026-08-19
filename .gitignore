@@ -1,1 +1,14 @@
 .DS_Store
+.env
+.env.*
+node_modules/
+*.log
+~$*.docx
+/Screenshots QBR test/
+/QBR-uni-main/qbr-dashboard/docs/portfolio/assets/QBR Dashboard Portfolio Finalisation Prompt.md
+/QBR-uni-main/qbr-dashboard/PORTFOLIO-COMPLETION-PLAN.md
+/QBR-uni-main/qbr-dashboard/docs/HARVARD-SOURCE-PLAN.md
+/QBR-uni-main/qbr-dashboard/docs/wireframes.html
+/QBR-uni-main/qbr-dashboard/docs/portfolio/FINAL-PORTFOLIO-NARRATIVE.md
+/QBR-uni-main/qbr-dashboard/docs/portfolio/HARVARD-REFERENCES.md
+/QBR-uni-main/qbr-dashboard/docs/portfolio/PROFESSIONAL-REFLECTION-DRAFT.md

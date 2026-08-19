@@ -10,9 +10,10 @@
   <link rel="stylesheet" href="vendor/jquery.dataTables.min.css" />
 
   <!-- App styles -->
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?v=10" />
 </head>
 <body>
+  <a class="skip-link" href="#content">Skip to main content</a>
   <!-- App shell -->
   <div class="app" id="app">
     <!-- Sidebar -->
@@ -42,19 +43,13 @@
         </button>
       </nav>
 
-      <div class="sidebar__footer">
-        <div class="privacy-badge" title="All CSV parsing happens in your browser. No data is uploaded to any server.">
-          <span class="privacy-badge__dot"></span>
-          <span>Client-side only · data stays local</span>
-        </div>
-      </div>
     </aside>
 
     <!-- Main -->
     <div class="main">
       <!-- Top bar -->
       <header class="topbar">
-        <button class="icon-btn" id="menuToggle" aria-label="Toggle navigation">=</button>
+        <button class="icon-btn" id="menuToggle" aria-label="Toggle navigation" aria-controls="sidebar" aria-expanded="false">☰</button>
         <div class="topbar__title">
           <h1 id="viewTitle">Overview</h1>
           <p id="viewSubtitle">Consolidated performance across all categories</p>
@@ -97,10 +92,11 @@
       <main class="content" id="content" tabindex="-1"><!-- rendered by app.js --></main>
 
       <footer class="appfoot">
-        <span id="storageInfo">—</span>
+        <span id="storageInfo">-</span>
         <span>QBR Dashboard</span>
       </footer>
     </div>
+    <button class="nav-backdrop" id="navBackdrop" aria-label="Close navigation" tabindex="-1"></button>
   </div>
 
   <!-- Toast notifications -->
@@ -115,13 +111,13 @@
   <script src="vendor/jspdf.plugin.autotable.min.js"></script>
 
   <!-- ===== App modules (load order matters) ===== -->
-  <script src="js/store.js?v=7"></script>
-  <script src="js/parser.js?v=7"></script>
-  <script src="js/charts.js?v=7"></script>
-  <script src="js/tables.js?v=7"></script>
-  <script src="js/filters.js?v=7"></script>
-  <script src="js/upload.js?v=7"></script>
-  <script src="js/export.js?v=7"></script>
-  <script src="js/app.js?v=7"></script>
+  <script src="js/store.js?v=9"></script>
+  <script src="js/parser.js?v=8"></script>
+  <script src="js/charts.js?v=8"></script>
+  <script src="js/tables.js?v=8"></script>
+  <script src="js/filters.js?v=8"></script>
+  <script src="js/upload.js?v=8"></script>
+  <script src="js/export.js?v=8"></script>
+  <script src="js/app.js?v=9"></script>
 </body>
 </html>

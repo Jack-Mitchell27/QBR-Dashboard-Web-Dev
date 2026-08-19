@@ -1,0 +1,10 @@
+Date,Category,Metric,Value,Unit,Target,Direction,Status,Version,CaseID,Owner,Notes
+2026-01-31,Incidents,Open P1 Cases,0,count,0,lower,,v1.0,TEST-L-001,Service Desk,Zero meets zero target
+2026-02-28,Incidents,Open P1 Cases,2,count,0,lower,,v1.0,TEST-L-002,Service Desk,Positive value against zero target should be red
+2026-01-31,Support,Resolution Time,8,hours,10,lower,,v1.0,TEST-L-003,TAC,At or below target should be green
+2026-02-28,Support,Resolution Time,12,hours,10,lower,,v1.0,TEST-L-004,TAC,Within 125 percent should be amber
+2026-03-31,Support,Resolution Time,13,hours,10,lower,,v1.0,TEST-L-005,TAC,Above 125 percent should be red
+2026-01-31,Operations,Backlog,15,count,20,lower,,v1.0,TEST-L-006,Operations,Backlog below target
+2026-02-28,Operations,Backlog,20,count,20,lower,,v1.0,TEST-L-007,Operations,Backlog exactly on target
+2026-03-31,Operations,Backlog,24,count,20,lower,,v1.0,TEST-L-008,Operations,Backlog amber range
+2026-04-30,Operations,Backlog,26,count,20,lower,,v1.0,TEST-L-009,Operations,Backlog red range

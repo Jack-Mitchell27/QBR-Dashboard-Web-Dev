@@ -1,6 +1,6 @@
-# QBR Dashboard — Quick Start
+# QBR Dashboard: Quick Start
 
-Thanks for the dashboard! It runs **entirely on your computer** — no installation account, no internet, and **your data never leaves your machine**.
+Thanks for the dashboard! It runs **entirely on your computer**: no installation account, no internet, and **your data never leaves your machine**.
 
 ## How to open it
 
@@ -29,8 +29,14 @@ Thanks for the dashboard! It runs **entirely on your computer** — no installat
 
 Required columns: **`Date, Category, Metric, Value`** (others are optional). A file missing a required column is rejected with a clear message.
 
+Rows are also checked for required values, valid `YYYY-MM-DD` dates and numeric values. If status should be calculated from a target, include `Direction` as `higher` or `lower`; this prevents the dashboard from assuming that a larger number is always better.
+
+Want to explore first? From the empty dashboard or **Settings**, choose **Load demo data**. Demo data is optional and clearly labelled.
+
 ## Your data is saved locally
 Uploads persist in this browser between sessions (via `localStorage`). To wipe everything: **Settings → Clear all data**.
+
+Export a consolidated CSV before clearing browser data or changing device. Browser storage belongs to the current browser profile and is not a central backup.
 
 ## To stop
 Close the small server window (macOS/Windows/Linux), or press **Ctrl+C** in it.

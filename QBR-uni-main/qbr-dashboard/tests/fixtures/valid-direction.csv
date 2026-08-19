@@ -1,0 +1,3 @@
+Date,Category,Metric,Value,Unit,Target,Direction,Status,Version,CaseID,Owner,Notes
+2026-08-18,Cases,Open Cases,3,count,0,lower,,,,Support Team,Zero-target direction test
+2026-08-18,Performance,Resolution Time,20,hours,24,lower,,,,Support Team,Within target

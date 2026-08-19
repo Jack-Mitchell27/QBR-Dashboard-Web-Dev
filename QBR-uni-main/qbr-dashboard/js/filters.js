@@ -1,5 +1,5 @@
 /* =============================================================
-   filters.js — global filter state + row filtering
+  filters.js - global filter state + row filtering
    Exposes a global `Filters` object.
    ============================================================= */
 (function () {

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="310" viewBox="0 0 1200 310" role="img" aria-labelledby="title desc">
+  <title id="title">Core preparation and review workflow</title>
+  <desc id="desc">A simple flowchart using rectangles, a decision diamond and arrows. The process moves from template to CSV preparation, import, validation, review and export. Invalid data returns to CSV correction.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0 0L8 4L0 8Z" fill="#315d7a"/>
+    </marker>
+    <style>
+      .heading{font:700 28px Arial,sans-serif;fill:#10243a}
+      .label{font:700 18px Arial,sans-serif;fill:#10243a;text-anchor:middle}
+      .note{font:15px Arial,sans-serif;fill:#52657a}
+      .shape{fill:#fff;stroke:#315d7a;stroke-width:2}
+      .decision{fill:#e7f7ef;stroke:#16845b;stroke-width:2}
+      .correction{fill:#fff4e8;stroke:#c86f14;stroke-width:2}
+      .connector{fill:none;stroke:#315d7a;stroke-width:3;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="310" fill="#fff"/>
+  <text x="40" y="42" class="heading">Core preparation and review workflow</text>
+
+  <rect x="35" y="92" width="150" height="64" rx="4" class="shape"/>
+  <text x="110" y="130" class="label">Template</text>
+  <rect x="220" y="92" width="160" height="64" rx="4" class="shape"/>
+  <text x="300" y="130" class="label">Prepare CSV</text>
+  <rect x="415" y="92" width="140" height="64" rx="4" class="shape"/>
+  <text x="485" y="130" class="label">Import</text>
+  <polygon points="650,78 705,124 650,170 595,124" class="decision"/>
+  <text x="650" y="130" class="label">Valid?</text>
+  <rect x="750" y="92" width="150" height="64" rx="4" class="shape"/>
+  <text x="825" y="130" class="label">Review</text>
+  <rect x="945" y="92" width="150" height="64" rx="4" class="shape"/>
+  <text x="1020" y="130" class="label">Export</text>
+
+  <path d="M185 124H220" class="connector"/>
+  <path d="M380 124H415" class="connector"/>
+  <path d="M555 124H595" class="connector"/>
+  <path d="M705 124H750" class="connector"/>
+  <path d="M900 124H945" class="connector"/>
+  <text x="718" y="111" class="note">Yes</text>
+
+  <rect x="540" y="220" width="220" height="55" rx="4" class="correction"/>
+  <text x="650" y="254" class="label">Correct CSV errors</text>
+  <path d="M650 170V220" class="connector"/>
+  <text x="662" y="199" class="note">No</text>
+  <path d="M540 248H300V156" class="connector"/>
+
+  <text x="800" y="234" class="note">Accepted data is stored locally.</text>
+  <text x="800" y="258" class="note">Existing data is preserved on failure.</text>
+</svg>

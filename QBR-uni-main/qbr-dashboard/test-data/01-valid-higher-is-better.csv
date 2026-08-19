@@ -1,0 +1,10 @@
+Date,Category,Metric,Value,Unit,Target,Direction,Status,Version,CaseID,Owner,Notes
+2026-01-31,Service Quality,Availability,99.5,%,99,higher,,v1.0,TEST-H-001,Operations,Above target
+2026-02-28,Service Quality,Availability,95,%,99,higher,,v1.0,TEST-H-002,Operations,Expected amber result
+2026-03-31,Service Quality,Availability,75,%,99,higher,,v1.0,TEST-H-003,Operations,Expected red result
+2026-01-31,Customer Experience,CSAT,90,%,85,higher,,v1.0,TEST-H-004,Customer Success,Above target
+2026-02-28,Customer Experience,CSAT,75,%,85,higher,,v1.0,TEST-H-005,Customer Success,Expected amber result
+2026-03-31,Customer Experience,CSAT,60,%,85,higher,,v1.0,TEST-H-006,Customer Success,Expected red result
+2026-01-31,Delivery,Completed Changes,125,count,100,higher,,v1.0,TEST-H-007,Change Team,Green boundary test
+2026-02-28,Delivery,Completed Changes,80,count,100,higher,,v1.0,TEST-H-008,Change Team,Amber boundary test
+2026-03-31,Delivery,Completed Changes,79,count,100,higher,,v1.0,TEST-H-009,Change Team,Red boundary test

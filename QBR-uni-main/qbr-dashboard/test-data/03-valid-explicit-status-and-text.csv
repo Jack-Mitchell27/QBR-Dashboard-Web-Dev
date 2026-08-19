@@ -1,0 +1,9 @@
+Date,Category,Metric,Value,Unit,Target,Direction,Status,Version,CaseID,Owner,Notes
+2026-01-15,"Deployment, Phase 1",Readiness,92,%,,,green,v2.1,TEST-T-001,Programme Team,"Customer said ""excellent"" during review"
+2026-01-31,Security,Open Findings,4,count,,,amber,v2.1,TEST-T-002,Security Team,"Contains commas, quotes, and punctuation!"
+2026-02-15,Network,Upgrade Progress,70,%,,,amber,v2.2,TEST-T-003,Network Team,Café network review – completed
+2026-02-28,Applications,Failed Jobs,9,count,,,red,v2.2,TEST-T-004,Application Team,<strong>Review required</strong>
+2026-03-15,Support,Customer Follow-ups,18,count,,,green,v2.3,TEST-T-005,Service Desk,Formula marker =1+1 should remain ordinary text
+2026-03-31,Licensing,Renewals Complete,45,count,,,green,v2.3,TEST-T-006,Commercial Team,"Multi-word owner and a long narrative for table wrapping"
+2026-04-15,Assets,Devices Pending,12,count,,,amber,v2.4,TEST-T-007,Asset Team,Unicode check: £ € ✓
+2026-04-30,Governance,Overdue Actions,3,count,,,red,v2.4,TEST-T-008,PMO,Explicit status overrides the absence of a target

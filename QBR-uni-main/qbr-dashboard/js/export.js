@@ -1,25 +1,43 @@
 /* =============================================================
-   export.js — consolidated CSV export + PDF report
+  export.js - consolidated CSV export + PDF report
    Exposes a global `Exporter` object.
    ============================================================= */
 (function () {
   'use strict';
 
-  const COLUMNS = ['Date', 'Category', 'Metric', 'Value', 'Target', 'Status', 'Version', 'CaseID', 'Owner', 'Notes'];
+  const COLUMNS = ['Date', 'Category', 'Metric', 'Value', 'Unit', 'Target', 'Direction', 'Status', 'Version', 'CaseID', 'Owner', 'Notes'];
+
+  function safeSpreadsheetValue(value) {
+    if (typeof value === 'string' && /^[=+\-@]/.test(value)) return "'" + value;
+    return value;
+  }
+
+  function buildConsolidatedCsv(rows) {
+    const header = ['Source'].concat(COLUMNS);
+    const records = (rows || []).map(r => {
+      const o = { Source: safeSpreadsheetValue(r._categoryName || '') };
+      COLUMNS.forEach(c => { o[c] = safeSpreadsheetValue(r[c] == null ? '' : r[c]); });
+      return o;
+    });
+    return window.Papa.unparse({ fields: header, data: records.map(r => header.map(h => r[h])) });
+  }
+
+  function buildPdfBody(rows) {
+    return (rows || []).map(r => [
+      r.Date || '', r.Category || '', r.Metric || '',
+      r.Value == null ? '' : String(r.Value),
+      r.Unit || '', r.Target == null ? '' : String(r.Target),
+      r.Status ? r.Status.toUpperCase() : '',
+      r.Owner || '', r.CaseID || ''
+    ]);
+  }
 
   /* ---- Consolidated CSV ---------------------------------------------- */
   function downloadConsolidatedCsv(rows) {
     const data = rows || window.Store.getAllRows();
     if (!data.length) { window.Toast && window.Toast.show('No data to export.', 'warn'); return; }
 
-    const header = ['Source'].concat(COLUMNS);
-    const records = data.map(r => {
-      const o = { Source: r._categoryName || '' };
-      COLUMNS.forEach(c => { o[c] = r[c] == null ? '' : r[c]; });
-      return o;
-    });
-
-    const csv = window.Papa.unparse({ fields: header, data: records.map(r => header.map(h => r[h])) });
+    const csv = buildConsolidatedCsv(data);
     triggerDownload(csv, 'text/csv;charset=utf-8;', filename('qbr-consolidated', 'csv'));
     window.Toast && window.Toast.show(`Exported ${data.length} rows to CSV`, 'success');
   }
@@ -60,7 +78,7 @@
 
     const summaryBody = [
       ['Total data points', String(filtered.length)],
-      ['Categories with data', String(window.Store.getCategories().filter(c => window.Store.getRows(c.id).length).length) + ' / ' + window.Store.getCategories().length],
+      ['Categories in report', String(new Set(filtered.map(r => r._categoryId).filter(Boolean)).size) + ' / ' + window.Store.getCategories().length],
       ['Red items', String(sc.red)],
       ['Amber items', String(sc.amber)],
       ['Green items', String(sc.green)]
@@ -95,23 +113,18 @@
       doc.text('  ' + cat.name + '  (' + rows.length + ' rows)', margin + 6, y);
       y += 6;
 
-      const body = rows.slice(0, 40).map(r => [
-        r.Date || '', r.Category || '', r.Metric || '',
-        r.Value == null ? '' : String(r.Value),
-        r.Status ? r.Status.toUpperCase() : '',
-        r.Version || '', r.CaseID || ''
-      ]);
+      const body = buildPdfBody(rows);
 
       doc.autoTable({
         startY: y + 6,
-        head: [['Date', 'Category', 'Metric', 'Value', 'Status', 'Version', 'Case ID']],
+        head: [['Date', 'Category', 'Metric', 'Value', 'Unit', 'Target', 'Status', 'Owner', 'Case ID']],
         body,
         theme: 'striped',
         styles: { font: 'helvetica', fontSize: 8, cellPadding: 4, overflow: 'linebreak' },
         headStyles: { fillColor: [11, 37, 65], textColor: 255 },
         margin: { left: margin, right: margin },
         didParseCell: function (data) {
-          if (data.section === 'body' && data.column.index === 4) {
+          if (data.section === 'body' && data.column.index === 6) {
             const v = String(data.cell.raw || '').toLowerCase();
             if (v === 'red') { data.cell.styles.textColor = [163, 20, 13]; data.cell.styles.fillColor = [253, 236, 236]; }
             else if (v === 'amber') { data.cell.styles.textColor = [138, 91, 0]; data.cell.styles.fillColor = [255, 246, 229]; }
@@ -153,5 +166,5 @@
     return `${base}-${stamp}.${ext}`;
   }
 
-  window.Exporter = { downloadConsolidatedCsv, downloadPdfReport };
+  window.Exporter = { buildConsolidatedCsv, buildPdfBody, safeSpreadsheetValue, downloadConsolidatedCsv, downloadPdfReport };
 })();

@@ -1,0 +1,49 @@
+Date,Category,Metric,Value,Unit,Target,Direction,Status,Version,CaseID,Owner,Notes
+2026-01-31,Service Quality,Availability,99.5,%,99,higher,,v3.0,LARGE-001,Operations,January
+2026-01-31,Customer Experience,CSAT,88,%,85,higher,,v3.0,LARGE-002,Customer Success,January
+2026-01-31,Incidents,Open P1 Cases,1,count,2,lower,,v3.0,LARGE-003,Service Desk,January
+2026-01-31,Support,Resolution Time,7,hours,8,lower,,v3.0,LARGE-004,TAC,January
+2026-01-31,Assets,Assets Patched,97,%,95,higher,,v3.0,LARGE-005,Asset Team,January
+2026-01-31,Licensing,Licences Used,82,%,80,higher,,v3.0,LARGE-006,Commercial Team,January
+2026-01-31,Operations,Backlog,18,count,20,lower,,v3.0,LARGE-007,Operations,January
+2026-01-31,Performance,SLA Met,99,%,98,higher,,v3.0,LARGE-008,Service Management,January
+2026-02-28,Service Quality,Availability,98,%,99,higher,,v3.0,LARGE-009,Operations,February
+2026-02-28,Customer Experience,CSAT,80,%,85,higher,,v3.0,LARGE-010,Customer Success,February
+2026-02-28,Incidents,Open P1 Cases,2,count,2,lower,,v3.0,LARGE-011,Service Desk,February
+2026-02-28,Support,Resolution Time,9,hours,8,lower,,v3.0,LARGE-012,TAC,February
+2026-02-28,Assets,Assets Patched,90,%,95,higher,,v3.0,LARGE-013,Asset Team,February
+2026-02-28,Licensing,Licences Used,78,%,80,higher,,v3.0,LARGE-014,Commercial Team,February
+2026-02-28,Operations,Backlog,22,count,20,lower,,v3.0,LARGE-015,Operations,February
+2026-02-28,Performance,SLA Met,95,%,98,higher,,v3.0,LARGE-016,Service Management,February
+2026-03-31,Service Quality,Availability,79,%,99,higher,,v3.0,LARGE-017,Operations,March
+2026-03-31,Customer Experience,CSAT,65,%,85,higher,,v3.0,LARGE-018,Customer Success,March
+2026-03-31,Incidents,Open P1 Cases,3,count,2,lower,,v3.0,LARGE-019,Service Desk,March
+2026-03-31,Support,Resolution Time,11,hours,8,lower,,v3.0,LARGE-020,TAC,March
+2026-03-31,Assets,Assets Patched,70,%,95,higher,,v3.0,LARGE-021,Asset Team,March
+2026-03-31,Licensing,Licences Used,60,%,80,higher,,v3.0,LARGE-022,Commercial Team,March
+2026-03-31,Operations,Backlog,28,count,20,lower,,v3.0,LARGE-023,Operations,March
+2026-03-31,Performance,SLA Met,75,%,98,higher,,v3.0,LARGE-024,Service Management,March
+2026-04-30,Service Quality,Availability,99.2,%,99,higher,,v3.1,LARGE-025,Operations,April
+2026-04-30,Customer Experience,CSAT,86,%,85,higher,,v3.1,LARGE-026,Customer Success,April
+2026-04-30,Incidents,Open P1 Cases,0,count,2,lower,,v3.1,LARGE-027,Service Desk,April
+2026-04-30,Support,Resolution Time,8,hours,8,lower,,v3.1,LARGE-028,TAC,April
+2026-04-30,Assets,Assets Patched,96,%,95,higher,,v3.1,LARGE-029,Asset Team,April
+2026-04-30,Licensing,Licences Used,84,%,80,higher,,v3.1,LARGE-030,Commercial Team,April
+2026-04-30,Operations,Backlog,16,count,20,lower,,v3.1,LARGE-031,Operations,April
+2026-04-30,Performance,SLA Met,98.5,%,98,higher,,v3.1,LARGE-032,Service Management,April
+2026-05-31,Service Quality,Availability,94,%,99,higher,,v3.1,LARGE-033,Operations,May
+2026-05-31,Customer Experience,CSAT,72,%,85,higher,,v3.1,LARGE-034,Customer Success,May
+2026-05-31,Incidents,Open P1 Cases,2,count,2,lower,,v3.1,LARGE-035,Service Desk,May
+2026-05-31,Support,Resolution Time,10,hours,8,lower,,v3.1,LARGE-036,TAC,May
+2026-05-31,Assets,Assets Patched,82,%,95,higher,,v3.1,LARGE-037,Asset Team,May
+2026-05-31,Licensing,Licences Used,70,%,80,higher,,v3.1,LARGE-038,Commercial Team,May
+2026-05-31,Operations,Backlog,24,count,20,lower,,v3.1,LARGE-039,Operations,May
+2026-05-31,Performance,SLA Met,90,%,98,higher,,v3.1,LARGE-040,Service Management,May
+2026-06-30,Service Quality,Availability,72,%,99,higher,,v3.2,LARGE-041,Operations,June
+2026-06-30,Customer Experience,CSAT,60,%,85,higher,,v3.2,LARGE-042,Customer Success,June
+2026-06-30,Incidents,Open P1 Cases,4,count,2,lower,,v3.2,LARGE-043,Service Desk,June
+2026-06-30,Support,Resolution Time,12,hours,8,lower,,v3.2,LARGE-044,TAC,June
+2026-06-30,Assets,Assets Patched,65,%,95,higher,,v3.2,LARGE-045,Asset Team,June
+2026-06-30,Licensing,Licences Used,55,%,80,higher,,v3.2,LARGE-046,Commercial Team,June
+2026-06-30,Operations,Backlog,30,count,20,lower,,v3.2,LARGE-047,Operations,June
+2026-06-30,Performance,SLA Met,70,%,98,higher,,v3.2,LARGE-048,Service Management,June

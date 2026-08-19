@@ -1,0 +1,25 @@
+name: QBR Dashboard Tests
+
+on:
+  push:
+    branches: [main, portfolio/reconstructed-history]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: QBR-uni-main/qbr-dashboard
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run regression tests
+        run: npm test

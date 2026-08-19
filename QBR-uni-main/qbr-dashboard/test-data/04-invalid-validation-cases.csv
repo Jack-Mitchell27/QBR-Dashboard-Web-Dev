@@ -1,0 +1,7 @@
+Date,Category,Metric,Value,Unit,Target,Direction,Status,Version,CaseID,Owner,Notes
+2026-02-30,Validation,Impossible Date,10,count,12,higher,,v0,TEST-I-001,QA,Date does not exist
+2026-03-31,Validation,Non Numeric Value,abc,count,12,higher,,v0,TEST-I-002,QA,Value must be numeric
+2026-04-30,Validation,Invalid Target,10,count,none,higher,,v0,TEST-I-003,QA,Target must be numeric
+2026-05-31,Validation,Invalid Direction,10,count,12,sideways,,v0,TEST-I-004,QA,Direction must be higher or lower
+2026-06-30,Validation,Invalid Status,10,count,12,higher,blue,v0,TEST-I-005,QA,Status must be red amber or green
+2026-07-31,,,10,count,12,higher,green,v0,TEST-I-006,QA,Category and Metric are deliberately blank

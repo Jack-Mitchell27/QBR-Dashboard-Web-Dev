@@ -1,5 +1,5 @@
 /* =============================================================
-   upload.js — drag & drop multi-category CSV upload UI
+  upload.js - drag & drop multi-category CSV upload UI
    Exposes a global `Upload` object with renderUploadView().
    ============================================================= */
 (function () {
@@ -16,7 +16,7 @@
     container.innerHTML = `
       <div class="section-head">
         <h2>Upload data</h2>
-        <span class="muted">Drag &amp; drop a CSV onto a category, or browse. Files are parsed in your browser — nothing is uploaded.</span>
+        <span class="muted">Drag &amp; drop a CSV onto a category, or browse. Files are parsed in your browser; nothing is uploaded.</span>
         <div class="section-head__spacer"></div>
         <button class="btn btn--ghost btn--sm" id="appendToggle" title="When on, new files are added to existing rows instead of replacing them">Mode: Replace</button>
       </div>
@@ -52,7 +52,7 @@
         </div>
       </div>
       <label class="dropzone__cta">
-        <input type="file" accept=".csv,text/csv" class="hidden file-input" />
+        <input type="file" accept=".csv,text/csv" class="hidden file-input" aria-label="Choose ${escapeHtml(cat.name)} CSV files" />
         <span>Drop CSV here or <u>browse</u></span>
       </label>
       <div class="dropzone__meta">
@@ -105,9 +105,16 @@
         }
 
         const useAppend = append || index > 0; // subsequent files in a multi-drop append
-        const metaObj = { fileName: file.name, sourceCategory: cat.id };
-        if (useAppend) window.Store.appendCategoryData(cat.id, result.rows, metaObj);
-        else window.Store.setCategoryData(cat.id, result.rows, metaObj);
+        const metaObj = { fileName: file.name, sourceCategory: cat.id, isDemo: false };
+        try {
+          if (useAppend) window.Store.appendCategoryData(cat.id, result.rows, metaObj);
+          else window.Store.setCategoryData(cat.id, result.rows, metaObj);
+        } catch (e) {
+          console.error(e);
+          setStatus('err', 'Could not save ' + file.name + ' in browser storage. Export or clear older data and try again.');
+          window.Toast && window.Toast.show('Browser storage is full or unavailable. Existing saved data was preserved.', 'error', 7000);
+          return;
+        }
 
         renderValidation(result);
         const total = window.Store.getRows(cat.id).length;
@@ -131,8 +138,11 @@
       if (result.stats && result.stats.skipped) {
         parts.push(`<div class="validation__warn">Skipped ${result.stats.skipped} blank row(s).</div>`);
       }
-      if (result.errors && result.errors.length && result.ok) {
-        parts.push(`<div class="validation__warn">${escapeHtml(result.errors.slice(0, 3).join(' · '))}</div>`);
+      if (result.errors && result.errors.length) {
+        const cls = result.ok ? 'validation__warn' : 'validation__err';
+        const shown = result.errors.slice(0, 8);
+        const more = result.errors.length > shown.length ? ` · ${result.errors.length - shown.length} more issue(s)` : '';
+        parts.push(`<div class="${cls}">${escapeHtml(shown.join(' · ') + more)}</div>`);
       }
       validationEl.innerHTML = parts.join('');
     }
@@ -156,9 +166,14 @@
     if (clearBtn) {
       clearBtn.addEventListener('click', () => {
         if (!confirm('Clear all imported data for ' + cat.name + '?')) return;
-        window.Store.clearCategory(cat.id);
-        window.Toast && window.Toast.show(cat.name + ' data cleared', 'warn');
-        if (typeof onChange === 'function') onChange();
+        try {
+          window.Store.clearCategory(cat.id);
+          window.Toast && window.Toast.show(cat.name + ' data cleared', 'warn');
+          if (typeof onChange === 'function') onChange();
+        } catch (e) {
+          console.error(e);
+          window.Toast && window.Toast.show('Could not update browser storage. Existing saved data was preserved.', 'error');
+        }
       });
     }
 

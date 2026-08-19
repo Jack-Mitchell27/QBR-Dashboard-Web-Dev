@@ -1,5 +1,5 @@
 /* =============================================================
-   tables.js — DataTables rendering + traffic-light formatting
+  tables.js - DataTables rendering + traffic-light formatting
    Exposes a global `Tables` object.
    ============================================================= */
 (function () {
@@ -7,6 +7,15 @@
 
   let seq = 0;
   const liveTables = {}; // tableId -> DataTable API
+
+  function destroy(id) {
+    if (!id || !liveTables[id]) return;
+    try { liveTables[id].destroy(true); }
+    catch (e) { console.warn('Failed to destroy DataTable ' + id, e); }
+    delete liveTables[id];
+  }
+
+  function destroyAll() { Object.keys(liveTables).forEach(destroy); }
 
   function escapeHtml(s) {
     return String(s == null ? '' : s)
@@ -20,12 +29,12 @@
       amber: ['status--amber', 'Amber'],
       green: ['status--green', 'Green']
     };
-    const [cls, label] = map[status] || ['status--none', '—'];
+    const [cls, label] = map[status] || ['status--none', '-'];
     return `<span class="status-pill ${cls}"><span class="status-dot"></span>${label}</span>`;
   }
 
   function fmtValue(v) {
-    if (v == null || v === '') return '<span class="muted">—</span>';
+    if (v == null || v === '') return '<span class="muted">-</span>';
     if (typeof v === 'number') return v.toLocaleString();
     return escapeHtml(v);
   }
@@ -36,6 +45,7 @@
    */
   function render(container, rows, opts) {
     opts = opts || {};
+    if (container.dataset.tableId) destroy(container.dataset.tableId);
     const id = 'dt_' + (++seq);
 
     // Tear down any previous instance in this container.
@@ -52,9 +62,12 @@
       'Date',
       showCategoryCol ? 'Source' : null,
       'Category', 'Metric', 'Value',
+      opts.showUnit !== false ? 'Unit' : null,
       opts.showTarget !== false ? 'Target' : null,
+      opts.showDirection !== false ? 'Direction' : null,
       'Status', 'Version', 'Case ID',
-      opts.showOwner !== false ? 'Owner' : null
+      opts.showOwner !== false ? 'Owner' : null,
+      opts.showNotes !== false ? 'Notes' : null
     ].filter(Boolean);
 
     const wrap = document.createElement('div');
@@ -78,11 +91,14 @@
       cells.push(escapeHtml(r.Category));
       cells.push(escapeHtml(r.Metric));
       cells.push(fmtValue(r.Value));
+      if (opts.showUnit !== false) cells.push(escapeHtml(r.Unit) || '<span class="muted">-</span>');
       if (opts.showTarget !== false) cells.push(fmtValue(r.Target));
+      if (opts.showDirection !== false) cells.push(escapeHtml(r.Direction) || '<span class="muted">-</span>');
       cells.push(statusPill(r.Status));
-      cells.push(r.Version ? `<span class="cell-version">${escapeHtml(r.Version)}</span>` : '<span class="muted">—</span>');
-      cells.push(r.CaseID ? `<span class="cell-version">${escapeHtml(r.CaseID)}</span>` : '<span class="muted">—</span>');
-      if (opts.showOwner !== false) cells.push(escapeHtml(r.Owner) || '<span class="muted">—</span>');
+      cells.push(r.Version ? `<span class="cell-version">${escapeHtml(r.Version)}</span>` : '<span class="muted">-</span>');
+      cells.push(r.CaseID ? `<span class="cell-version">${escapeHtml(r.CaseID)}</span>` : '<span class="muted">-</span>');
+      if (opts.showOwner !== false) cells.push(escapeHtml(r.Owner) || '<span class="muted">-</span>');
+      if (opts.showNotes !== false) cells.push(escapeHtml(r.Notes) || '<span class="muted">-</span>');
       tr.innerHTML = cells.map(c => `<td>${c}</td>`).join('');
       tbody.appendChild(tr);
     });
@@ -106,8 +122,9 @@
       }
     });
     liveTables[id] = api;
+    container.dataset.tableId = id;
     return api;
   }
 
-  window.Tables = { render, statusPill, escapeHtml };
+  window.Tables = { render, destroy, destroyAll, statusPill, escapeHtml };
 })();
