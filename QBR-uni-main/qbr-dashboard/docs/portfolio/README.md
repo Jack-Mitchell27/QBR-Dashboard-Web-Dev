@@ -12,7 +12,7 @@
 5. Use [EXPANDED-QA-REPORT.md](EXPANDED-QA-REPORT.md) as the technical QA appendix.
 6. Check the six sources against the institution's exact Harvard guide before submission.
 
-The integrated report contains 1,985 narration words, excluding headings, tables, figures, captions, code and references. It combines the narration with constructed personas, requirements, prioritised user stories, wireframes, application screenshots, architecture, code, Git history, testing, cost-benefit analysis and business evaluation instead of presenting the supporting documents sequentially. Figures 2 and 4 use simplified shape-based diagrams.
+The integrated report contains 1,992 narration words, excluding headings, tables, figures, captions, code and references. It combines the narration with constructed personas, requirements, prioritised user stories, wireframes, application screenshots, architecture, code, Git history, testing, cost-benefit analysis and business evaluation instead of presenting the supporting documents sequentially. Figures 2 and 4 use simplified shape-based diagrams.
 
 ## Six-point completion status
 
@@ -20,10 +20,21 @@ The integrated report contains 1,985 narration words, excluding headings, tables
 |---|---|---|---|
 | 1. Representative-user testing | Unable to complete | The limitation, value of the missing method and a proportionate hypothetical approach are explained | No participant evidence is claimed |
 | 2. Feedback-led iteration | Not claimed | Four factual test-led or expert-led changes are documented instead | The portfolio explains that feedback-led iteration was unavailable |
-| 3. Approximately 2,000-word portfolio narrative | Complete as an author draft | Integrated report contains 1,985 narration words plus supporting artefacts | Author must verify wording, final application count and institutional formatting |
+| 3. Approximately 2,000-word portfolio narrative | Complete as an author draft | Integrated report contains 1,992 narration words plus supporting artefacts | Author must verify wording, final application count and institutional formatting |
 | 4. Four to six Harvard references | Complete as a checked draft | Six cited sources, matching in-text citations and access dates | Check punctuation against the prescribed Harvard variant |
 | 5. Personal critical reflection | Complete as an author draft | Project-specific challenge, response, learning and future practice | Author must confirm that first-person claims accurately represent personal experience |
 | 6. Wider QA | Substantially complete | Chromium, Firefox and WebKit workflows; four-view accessibility scans; 1,000-row performance test; regression and coverage evidence | Genuine Safari, screen-reader testing, target-device testing and organisational security approval remain external checks |
+
+## Verified release state
+
+| Evidence | Verified result |
+|---|---|
+| Release commit | `df32727b765e5bea64f972e0ca83244672ea502c` on `main` |
+| Regression workflow | `QBR Dashboard Tests`, run 3, completed successfully on 19 August 2026 |
+| Test result | 20 passed, 0 failed and 0 skipped locally; remote regression step passed |
+| Release | Annotated tag `v1.1.0` and GitHub Release published |
+| Release assets | Editable Word portfolio and matching PDF |
+| Release records | `CHANGELOG.md` and `RELEASE-NOTES.md` |
 
 ## Important evidence boundary
 
@@ -35,16 +46,16 @@ User testing was not possible because suitable participant access was unavailabl
 - [USER-TESTING-LIMITATION.md](USER-TESTING-LIMITATION.md): explanation of the unavailable evaluation stage and its effect on the evidence.
 - [assets/application-states](assets/application-states): four separate screenshots captured from the running application.
 - [../../test-data](../../test-data): five reusable CSV fixtures.
-- [assets/test-evidence](assets/test-evidence) contains eight checked screenshots and a caption register.
+- [assets/test-evidence](assets/test-evidence) contains nine checked screenshots and a caption register.
 
 ## Final submission checklist
 
 - [ ] Replace the author-review notices only after checking their statements.
-- [ ] Keep the user-testing limitation clear and do not imply that sessions occurred.
+- [x] Keep the user-testing limitation clear and do not imply that sessions occurred.
 - [x] Add numbered legends to every screenshot included in the report.
 - [ ] Confirm the final body count in the application used for submission and keep it at or below 2,000 words.
-- [ ] Ensure every in-text citation has one matching reference.
-- [ ] Run the dashboard in genuine Safari if Safari support will be claimed.
-- [ ] Record manual VoiceOver or equivalent screen-reader results if accessibility conformance will be discussed.
+- [x] Ensure every in-text citation has one matching reference.
+- [x] Do not claim genuine Safari support; WebKit is identified as a compatibility proxy.
+- [x] Do not claim WCAG conformance; unavailable screen-reader task testing remains explicit.
 - [ ] Follow the institution's AI-use and authorship declaration requirements.
 - [x] Export the integrated document to PDF and inspect representative page breaks, tables and image legibility.

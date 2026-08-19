@@ -2,8 +2,14 @@ name: Publish QBR Dashboard Release
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*'
+    paths:
+      - 'QBR-uni-main/qbr-dashboard/RELEASE-NOTES.md'
+      - 'QBR-uni-main/qbr-dashboard/docs/portfolio/QBR-Dashboard-Portfolio.docx'
+      - 'QBR-uni-main/qbr-dashboard/docs/portfolio/QBR-Dashboard-Portfolio-Pack.pdf'
 
 permissions:
   contents: write
@@ -15,6 +21,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v5
       - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
         env:
           GH_TOKEN: ${{ github.token }}
         run: >-
@@ -24,3 +31,16 @@ jobs:
           --notes-file "QBR-uni-main/qbr-dashboard/RELEASE-NOTES.md"
           "QBR-uni-main/qbr-dashboard/docs/portfolio/QBR-Dashboard-Portfolio.docx#QBR Dashboard Portfolio (Word)"
           "QBR-uni-main/qbr-dashboard/docs/portfolio/QBR-Dashboard-Portfolio-Pack.pdf#QBR Dashboard Portfolio (PDF)"
+      - name: Refresh v1.1.0 portfolio assets
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release edit v1.1.0 \
+            --repo "$GITHUB_REPOSITORY" \
+            --notes-file "QBR-uni-main/qbr-dashboard/RELEASE-NOTES.md"
+          gh release upload v1.1.0 \
+            --repo "$GITHUB_REPOSITORY" \
+            --clobber \
+            "QBR-uni-main/qbr-dashboard/docs/portfolio/QBR-Dashboard-Portfolio.docx#QBR Dashboard Portfolio (Word)" \
+            "QBR-uni-main/qbr-dashboard/docs/portfolio/QBR-Dashboard-Portfolio-Pack.pdf#QBR Dashboard Portfolio (PDF)"

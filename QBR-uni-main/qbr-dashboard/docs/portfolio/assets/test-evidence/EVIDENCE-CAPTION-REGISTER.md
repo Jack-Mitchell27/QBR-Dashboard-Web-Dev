@@ -21,7 +21,7 @@ If the portfolio permits only five images, use these:
 4. `04-chart-accessible-data-table.png`
 5. `06-large-dataset-search-filter.png`
 
-Images 05, 07 and 08 are supplementary evidence for filtering, responsive behaviour and expanded QA.
+Images 05, 07, 08 and 09 are supplementary evidence for filtering, responsive behaviour, expanded QA and remote CI.
 
 ---
 
@@ -129,6 +129,19 @@ Images 05, 07 and 08 are supplementary evidence for filtering, responsive behavi
 | Outcome | **PASS WITH EXPLICIT LIMITATIONS** |
 | Portfolio caption | Expanded QA verified the same import, chart, filter, export and keyboard workflow in Chromium, Firefox and WebKit. Two contrast defects were corrected, final automated scans reported no detected violation, and five 1,000-row runs established a local performance baseline. WebKit is not claimed as genuine Safari and automated scans do not prove WCAG conformance. |
 
+## EV-09: Final GitHub Actions result
+
+![GitHub Actions summary showing the final release commit test job completed successfully](09-github-actions-final-pass.png)
+
+| Field | Evidence |
+| --- | --- |
+| Requirement | The final release commit must pass the regression suite remotely before publication. |
+| Test input | Push of commit `df32727b765e5bea64f972e0ca83244672ea502c` to `main`. |
+| Expected result | The `QBR Dashboard Tests` workflow completes successfully and its test job passes. |
+| Actual result | Workflow run 3 completed successfully in 11 seconds; the test job passed. |
+| Outcome | **PASS** |
+| Portfolio caption | GitHub Actions verified the final release commit on `main` before the annotated `v1.1.0` tag and GitHub Release were published. |
+
 ## Submission note
 
-The five recommended core images provide breadth rather than repeating similar table views. They cover automated quality assurance, negative validation, boundary logic, analytical accessibility and larger-data filtering. Use the supplementary filtering, mobile and expanded-QA images when the portfolio format allows more evidence. EV-08 is particularly useful beside a QA section because it adds Firefox, WebKit, accessibility-defect and performance evidence in one legible figure.
+The five recommended core images provide breadth rather than repeating similar table views. They cover automated quality assurance, negative validation, boundary logic, analytical accessibility and larger-data filtering. Use the supplementary filtering, mobile, expanded-QA and remote-CI images when the portfolio format allows more evidence. EV-08 adds Firefox, WebKit, accessibility-defect and performance evidence, while EV-09 records the final remote release gate.

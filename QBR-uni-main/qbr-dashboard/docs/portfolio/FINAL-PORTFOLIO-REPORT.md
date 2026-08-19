@@ -2,7 +2,7 @@
 
 **Submission format:** Approximately 2,000 words of narration plus supporting tables, figures, screenshots and technical artefacts
 **Prepared:** 19 August 2026
-**Narration word count:** 1,985 using the repository count; confirm in the final submission application
+**Narration word count:** 1,992 using the repository count; confirm in the final submission application
 **Evidence boundary:** Representative-user testing was unavailable. No participant results, user acceptance, measured savings, genuine Safari result or WCAG conformance claim is made.
 
 ## Portfolio structure
@@ -85,10 +85,10 @@ MoSCoW prioritisation separated decision-critical import, validation, status, fi
 |---|---|---|---|---|
 | FR-01 | Must | Import a CSV into any of eight categories using replace or append mode | Complete | Upload view and browser workflow |
 | FR-02 | Must | Require Date, Category, Metric and Value headers | Complete | Parser regression tests |
-| FR-03 | Must | Reject the complete file before persistence when any material row is invalid | Complete | Figure 6 and invalid fixture |
+| FR-03 | Must | Reject the complete file before persistence when any material row is invalid | Complete | Figure 7 and invalid fixture |
 | FR-04 | Must | Validate real ISO dates and finite numeric values or targets | Complete | Parser tests and row-level messages |
 | FR-05 | Must | Retain explicit RAG status or derive it only from a valid target and direction | Complete | Direction and zero-target tests |
-| FR-06 | Must | Keep each metric and unit in a separate trend series | Complete | Chart tests and Figure 8 |
+| FR-06 | Must | Keep each metric and unit in a separate trend series | Complete | Chart tests and Figure 9 |
 | FR-07 | Must | Filter inclusively by date and combine category and status filters | Complete | Filter tests and browser scenarios |
 | FR-08 | Must | Persist accepted data transactionally and recover a valid previous state | Complete | Store rollback and recovery tests |
 | FR-09 | Must | Display category summaries, charts and searchable detailed records | Complete | Overview and category-detail checks |
@@ -124,7 +124,7 @@ Every story is a design assumption because external user validation was unavaila
 | US-07 | Must | Reviewer | separate metric trends | incompatible values are not mistaken for a meaningful total | Chart transformation tests |
 | US-08 | Must | Reviewer | complete CSV and PDF exports | evidence can be shared without re-keying | Export regression tests |
 | US-09 | Should | Keyboard user | visible focus and controllable mobile navigation | the core interface is operable without a pointer | Keyboard browser checks |
-| US-10 | Should | Assistive-technology user | structured chart-data tables | values are not available only as canvas pixels | Figure 6 and semantic tables |
+| US-10 | Should | Assistive-technology user | structured chart-data tables | values are not available only as canvas pixels | Figure 9 and semantic tables |
 
 # 3. Design and User Experience
 
@@ -219,8 +219,13 @@ function deriveStatus(value, target, direction) {
 | `59d679d` | Initial project import | Establishes the repository baseline |
 | `0e316b5` | Dashboard scaffold commit | Shows a separate scaffold stage |
 | `cbb41b1` | Reconstructed-history branch merged into `main` | History exists but is less granular than an ideal requirement-linked sequence |
-| GitHub Actions workflow | Runs the Node regression suite on pushes and pull requests | Provides a repeatable gate, but the final working-tree changes must be committed and the remote run checked |
-| Package version | Version 1.1.0 | Identifies the application snapshot; a release tag and changelog would improve traceability |
+| Final release commit | `df32727b765e5bea64f972e0ca83244672ea502c` on `main` | Records the application, portfolio and automated release publication state |
+| GitHub Actions workflow | `QBR Dashboard Tests`, run 3, completed successfully on 19 August 2026 | The remote `Run regression tests` step passed for the final release commit; the local suite reported 20/20 |
+| Release evidence | Annotated tag `v1.1.0`, `CHANGELOG.md` and GitHub Release published with Word and PDF assets | Improves traceability, but the historical commit sequence remains less granular than an ideal requirement-linked history |
+
+![Successful GitHub Actions run for the final release commit](assets/test-evidence/09-github-actions-final-pass.png)
+
+*Figure 5. GitHub Actions run 3 completed successfully for commit df32727 on main. The test job passed remotely before the v1.1.0 release was published.*
 
 # 5. Testing and Quality Assurance
 
@@ -245,33 +250,33 @@ The same 48-row workflow passed in Chromium 151, Firefox 153 and WebKit 26.5 wit
 
 ![Twenty automated regression tests passing](assets/test-evidence/01-automated-regression-20-pass.png)
 
-*Figure 5. Automated regression evidence: 20 tests passed with zero failures or skips.*
+*Figure 6. Automated regression evidence: 20 tests passed with zero failures or skips.*
 
 ![Invalid CSV rejected with row-specific errors and no stored rows](assets/test-evidence/02-invalid-upload-atomic-rejection.png)
 
-*Figure 6. Negative testing: invalid date, value, target and direction data was rejected before persistence.*
+*Figure 7. Negative testing: invalid date, value, target and direction data was rejected before persistence.*
 
 ![Lower-is-better and zero-target records](assets/test-evidence/03-lower-direction-zero-target.png)
 
-*Figure 7. Boundary testing: zero meets a zero lower target, while a positive value against it is red.*
+*Figure 8. Boundary testing: zero meets a zero lower target, while a positive value against it is red.*
 
 ![Metric-separated chart with accessible data table](assets/test-evidence/04-chart-accessible-data-table.png)
 
-*Figure 8. Unlike metrics remain separate and the chart has an expandable semantic data alternative.*
+*Figure 9. Unlike metrics remain separate and the chart has an expandable semantic data alternative.*
 
 ![Larger dataset search filtered from 48 rows](assets/test-evidence/06-large-dataset-search-filter.png)
 
-*Figure 9. Searching the 48-row fixture for March returned the expected eight detailed records.*
+*Figure 10. Searching the 48-row fixture for March returned the expected eight detailed records.*
 
 ![Expanded browser, accessibility and performance QA summary](assets/test-evidence/08-expanded-qa-summary.png)
 
-*Figure 10. Three-engine workflow results, corrected contrast defects and five-run performance medians.*
+*Figure 11. Three-engine workflow results, corrected contrast defects and five-run performance medians.*
 
 # 6. Deployment and Technical Implementation
 
 The application is distributed as static files with platform launchers and no production build step. A local HTTP origin is preferred because `localStorage` is origin-specific and direct file behaviour varies between browsers (MDN contributors, 2026). Vendor libraries are bundled, so runtime operation does not require a CDN. The recipient can use the supplied macOS, Windows or Linux launcher, while the Quick Start document explains import, backup and troubleshooting.
 
-This approach scales operationally only to the storage, processing power and browser profile of one device. Increasing row volume can be measured, but increasing users creates isolated copies rather than a shared service. A hosted architecture would be required for authentication, central backup, audit history and concurrent use. Maintenance currently involves dependency review, regression execution, browser checks and clear release notes. The existing GitHub Actions workflow supports repeatable regression testing once final changes are committed and pushed.
+This approach scales operationally only to the storage, processing power and browser profile of one device. Increasing row volume can be measured, but increasing users creates isolated copies rather than a shared service. A hosted architecture would be required for authentication, central backup, audit history and concurrent use. Maintenance currently involves dependency review, regression execution, browser checks and clear release notes. The final `main` commit passed the remote GitHub Actions regression workflow before the annotated `v1.1.0` tag and GitHub Release were published.
 
 ## Artefact 9: Deployment, scalability and maintenance
 
@@ -283,7 +288,7 @@ This approach scales operationally only to the storage, processing power and bro
 | Runtime dependencies | Libraries bundled in `vendor` | Offline-capable, but versions require periodic review |
 | More data | Browser-side parse, render and storage | Re-run thresholds on target device and maximum expected volume |
 | More users | Independent browser profiles | Requires hosted authentication and central data services |
-| Release quality | Node tests and GitHub Actions workflow | Commit final changes, verify remote CI and record release notes |
+| Release quality | Final `main` commit `df32727`; local 20/20 tests; successful remote workflow run 3; annotated `v1.1.0` tag; changelog and GitHub Release | Verified release evidence, while production approval and stakeholder acceptance remain unavailable |
 
 # 7. Business Impact and Value
 
@@ -338,7 +343,7 @@ A similar lesson came from aggregation. Combining numeric values looked convenie
 
 Failure evidence improved the process. Forced storage and corrupt-state cases led to rollback and backup repair, while export tests exposed the historical row limit and formula risk. Accessibility scans found two contrast defects, which were corrected and rescanned. An apparent WebKit focus failure proved to be a pointer-based test-method issue; repeating the interaction with keyboard focus and Enter verified the intended behaviour. The test method therefore required scrutiny alongside the code.
 
-The modular structure and dependency-free Node tests made domain rules easier to isolate, while multi-engine checks covered integration behaviour. However, browser-heavy branches remain less covered by the pure harness, final changes are not yet represented in a granular requirement-linked commit history, and expert evaluation cannot replace user observation. Representative testing would have improved confidence in terminology, recovery and interpretation, but access was unavailable. Recording this limitation is more professionally credible than inventing feedback.
+The modular structure and dependency-free Node tests made domain rules easier to isolate, while multi-engine checks covered integration behaviour. However, browser-heavy branches remain less covered by the pure harness, the historical commit sequence is less granular than an ideal requirement-linked history, and expert evaluation cannot replace user observation. Representative testing would have improved confidence in terminology, recovery and interpretation, but access was unavailable. Recording this limitation is more professionally credible than inventing feedback.
 
 If repeated, semantic criteria and fixtures would precede interface work, commits would be smaller and linked to requirement IDs, and deployment constraints would be agreed earlier. Quality is now understood as correct meaning, recoverable failure, accessible operation, traceable evidence and explicit limits. This makes residual risk visible to technical and business stakeholders.
 
